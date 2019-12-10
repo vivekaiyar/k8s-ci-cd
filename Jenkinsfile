@@ -6,14 +6,14 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t kammana/nodeapp:${DOCKER_TAG} "
+                sh "docker build . -t node/nodeapp:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
-                    sh "docker push kammana/nodeapp:${DOCKER_TAG}"
+                withCredentials([usernameColonPassword(credentialsId: 'art4lab0-docker-deploy', variable: 'docker_deploy')]) {
+                    sh "docker login -u deploy -p ${docker_deploy}"
+                    sh "docker push node/nodeapp:${DOCKER_TAG}"
                 }
             }
         }
