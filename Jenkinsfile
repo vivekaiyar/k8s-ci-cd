@@ -28,5 +28,8 @@ def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD | cut -c1,5', returnStdout: true
     return tag
     }
-def ImageName = "node/nodeapp"
+def ImageName(){
+    def tag = "node/nodeapp"
+    return tag
+}
  
