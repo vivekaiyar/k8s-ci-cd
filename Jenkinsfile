@@ -3,7 +3,6 @@ pipeline {
     environment{
         DOCKER_TAG = getDockerTag()
     }
-    def ImageName = "node/nodeapp"
     stages{
         stage('Build Docker Image'){
             steps{
@@ -28,4 +27,5 @@ def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD | cut -c1,5', returnStdout: true
     return tag
     }
+def ImageName = "node/nodeapp"
  
