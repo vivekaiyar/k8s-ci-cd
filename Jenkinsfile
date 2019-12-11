@@ -24,3 +24,4 @@ def getDockerTag(){
     return tag
 }
     }
+}
