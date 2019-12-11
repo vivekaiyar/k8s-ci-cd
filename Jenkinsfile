@@ -13,7 +13,7 @@ pipeline {
             steps{
                 withCredentials([usernameColonPassword(credentialsId: 'art4lab0-docker-deploy', variable: 'docker_deploy')]) {
                     sh "docker login -u deploy -p ${docker_deploy}"
-                    sh "docker push node/nodeapp:${DOCKER_TAG}"
+                    sh "docker push art4lab0.labs.mastercard.com:5000/artifactory/docker-internal/test/node/nodeapp:${DOCKER_TAG}"
                 }
             }
         }
