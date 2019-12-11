@@ -14,6 +14,7 @@ pipeline {
                 script {
                 docker.withRegistry('https://art4lab0.labs.mastercard.com:5001', 'art4lab0-docker-deploy') {
                     //sh "docker login -u deploy -p ${docker_deploy} http://art4lab0.labs.mastercard.com"
+                    sh "docker tag art4lab0.labs.mastercard.com:5001/artifactory/docker-internal/test/node/nodeapp:${DOCKER_TAG}"
                     sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/docker-internal/test/node/nodeapp:${DOCKER_TAG}"
                 }
                 }
