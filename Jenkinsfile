@@ -3,30 +3,20 @@ pipeline {
     environment{
         DOCKER_TAG = getDockerTag()
         ImageName = ImageName()
-        registry = "art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/"
-        registryCredential = 'art4lab0-docker-deploy'
-        dockerImage = ''
     }
     stages{
         stage('Build Docker Image'){
             steps{
-                script{
-                    docker.withRegistry( 'http://' + registry, registryCredential) {
-                          def buildName = registry + "${ImageName}:${DOCKER_TAG}"
-                          newapp = docker.build buildName
-                          newapp.push()
-                }
+                sh "docker build . -t ${ImageName}:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
                 script {
-                docker.withRegistry( 'http://' + registry, registryCredential) {
+                docker.withRegistry("http://art4lab0.labs.mastercard.com:5001", 'art4lab0-docker-deploy') {
                     //sh "docker login -u deploy -p ${docker_deploy} http://art4lab0.labs.mastercard.com"
-                    //sh "docker tag ${ImageName}:${DOCKER_TAG} art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
-                    //sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
-                    docker.withRegistry( 'https://' + registry, registryCredential ) {
-                        newapp.push 'latest2'
+                    sh "docker tag ${ImageName}:${DOCKER_TAG} art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
+                    sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
                 }
                 }
             }
@@ -42,4 +32,3 @@ def ImageName(){
     def tag = "node/nodeapp"
     return tag
 }
- 
