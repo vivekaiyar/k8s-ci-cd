@@ -11,18 +11,20 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 script{
-                dockerImage = docker.build registry + "${ImageName}:${DOCKER_TAG}"
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
         stage('DockerHub Push'){
             steps{
                 script {
-                docker.withRegistry( '', registryCredential) {
+                docker.withRegistry( 'http://' + registry, registryCredential) {
                     //sh "docker login -u deploy -p ${docker_deploy} http://art4lab0.labs.mastercard.com"
                     //sh "docker tag ${ImageName}:${DOCKER_TAG} art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
                     //sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
-                    dockerImage.push()
+                    def buildName = registry + "${ImageName}:${DOCKER_TAG}"
+                    newapp = docker.build buildName
+                    newapp.push()    
                 }
                 }
             }
