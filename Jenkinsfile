@@ -29,7 +29,7 @@ def getDockerTag(){
     return tag
     }
 def ImageName(){
-    def tag = "artifactory/list/docker-internal/test/nodeapp"
+    def tag = "node/nodeapp"
     return tag
 }
  
