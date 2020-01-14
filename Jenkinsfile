@@ -15,8 +15,8 @@ pipeline {
                 script {
                 docker.withRegistry("http://art4lab0.labs.mastercard.com:5001", 'art4lab0-docker-deploy') {
                     //sh "docker login -u deploy -p ${docker_deploy} http://art4lab0.labs.mastercard.com"
-                    sh "docker tag ${ImageName}:${DOCKER_TAG} artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
-                    sh "docker push artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
+                    //sh "docker tag ${ImageName}:${DOCKER_TAG} art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
+                    sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/${ImageName}:${DOCKER_TAG}"
                 }
                 }
             }
