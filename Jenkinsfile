@@ -3,7 +3,7 @@ pipeline {
     environment{
         DOCKER_TAG = getDockerTag()
         ImageName = ImageName()
-        registry = "http://art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/"
+        registry = "art4lab0.labs.mastercard.com:5001/artifactory/list/docker-internal/test/"
         registryCredential = 'art4lab0-docker-deploy'
         dockerImage = ''
     }
