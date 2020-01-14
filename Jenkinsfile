@@ -10,7 +10,9 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
+                script{
                 dockerImage = docker.build registry + "${ImageName}:${DOCKER_TAG}"
+                }
             }
         }
         stage('DockerHub Push'){
