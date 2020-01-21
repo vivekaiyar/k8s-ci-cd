@@ -13,10 +13,10 @@ pipeline {
         stage('DockerHub Push'){
             steps{
                 script {
-                docker.withRegistry("https://art4lab0.labs.mastercard.com:5001", 'art4lab0-docker-deploy') {
+                docker.withRegistry(" ", 'docker_io') {
                     //sh "docker login -u deploy -p ${docker_deploy} http://art4lab0.labs.mastercard.com"
-                    sh "docker tag node/nodeapp:latest art4lab0.labs.mastercard.com:5001/artifactory/rnd-docker/test/node/nodeapp:v1"
-                    sh "docker push art4lab0.labs.mastercard.com:5001/artifactory/rnd-docker/test/node/nodeapp:v1"
+                    //sh "docker tag node/nodeapp:latest art4lab0.labs.mastercard.com:5001/artifactory/rnd-docker/test/node/nodeapp:v1"
+                    sh "docker push node/nodeapp:v1"
                 }
                 }
             }
